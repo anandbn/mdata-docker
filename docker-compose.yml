@@ -1,17 +1,36 @@
-app:
-  image: node:4
+mdata-worker:
+  image: node:latest
   volumes:
-   - ./app:/app
+    - ./app:/app
   links:
-   - neo4j
-  ports:
-   - "13000:3000"
+    - neo4j
+    - redis
   working_dir: /app
-  entrypoint: node app.js
-
-neo4j:
-  image: neo4j:3.0
+  command: node mdata-worker.js
+  env_file: "mdata.env"
+mdata-web:
+  image: node:latest
+  volumes:
+    - ./app:/app
+  links:
+    - neo4j
+    - redis
+    - mdata-worker
+  working_dir: /app
+  command: node web.js
+  env_file: "mdata.env"
   ports:
-   - "17474:7474"
+    - "3000:3000"
+redis:
+  image: redis
+  container_name: cache
+  expose:
+    - 6379
+neo4j:
+  image: neo4j:latest
+  environment:
+    - NEO4J_AUTH=neo4j/test
+  ports:
+   - "7474:7474"
   volumes:
    - ./db/dbms:/data/dbms

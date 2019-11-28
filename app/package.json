@@ -1,15 +1,31 @@
 {
-  "name": "app",
+  "name": "mdata-cloud-docker",
   "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
+  "description": "Docker version of Mdata",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.13.4",
-    "node-neo4j": "^2.0.3"
+    "antlr4": "^4.7.1",
+    "await-async": "0.0.1",
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "jsforce": "^1.8.5",
+    "lodash": "^4.17.10",
+    "neo4j-driver": "^1.6.2",
+    "node-rest-client": "^3.1.0",
+    "redis": "^2.8.0",
+    "salesforce-oauth2": "^0.2.0",
+    "sf-formula-ast": "0.0.1",
+    "sleepjs": "^3.0.1",
+    "unzip": "^0.1.11",
+    "unzip2": "^0.2.5",
+    "unzipper": "^0.10.5",
+    "winston": "^3.0.0",
+    "xml2js": "^0.4.19"
   }
 }

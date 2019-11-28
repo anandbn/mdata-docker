@@ -1,37 +1,43 @@
-var express = require('express');
-var app = express();
+console.log(`NEO4J_URL: ${process.env.NEO4J_URL}`);
+console.log(`REDIS_URL: ${process.env.REDIS_URL}`);
+const sleep = require('sleepjs');
+var neo4j = require('neo4j');
+var db = new neo4j.GraphDatabase(process.env.NEO4J_URL);
 
-var neo4j = require('node-neo4j');
-var db = new neo4j('http://neo4j:test@neo4j:7474');
-
-app.use('/', express.static(__dirname + '/view'));
-
-app.get('/tools/load', function (req, res, next) {
-    db.insertNode({
-        name: 'Darth Vader #' + parseInt(Math.random() * 100),
-        sex: 'male'
-    }, ['Person'], function (err, node) {
-        if (err) return next(err);
-
-        res.json(node);
+var redis = require("redis"),
+    client = redis.createClient({
+        url: process.env.REDIS_URL
     });
+client.on("error", function (err) {
+    console.log("Redis client Error " + err);
 });
 
-app.get('/tools/drop', function (req, res, next) {
-    db.cypherQuery("MATCH (n) DETACH DELETE n", function (err, result) {
-        if (err) return next(err);
-        res.json(result);
+async function runMain() {
+    console.info('Sleeping for 20 secs');
+    await sleep(20000);
+    db.cypher({
+        query: 'MERGE (alice:Person {name : {nameParam} }) RETURN alice.name AS name',
+        params: {
+            nameParam: 'Alice',
+        },
+    }, function (err, results) {
+        if (err) throw err;
+        console.log(`neo4j results: ${JSON.stringify(results, null, 4)}`);
     });
-});
 
-app.get('/persons', function (req, res, next) {
-    db.cypherQuery("MATCH (person:Person) RETURN person", function (err, result) {
-        if (err) return next(err);
-        res.json(result.data);
+    client.set('some-key', '42', function (err) {
+        if (err) {
+            throw err; 
+        } else {
+            client.get('some-key', function (err, value) {
+                if (err) {
+                    throw err;
+                } else {
+                    console.log(`redis results ${value}`);
+                }
+            });
+        }
     });
-});
+}
 
-
-app.listen(3000, function () {
-    console.log('started');
-});
+runMain();
