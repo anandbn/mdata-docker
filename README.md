@@ -72,3 +72,6 @@ IF you started it as a daemon, execute below to shut down:
 sh run_mdata.sh down
 ```
 
+## Accessing MData and kicking of an org indexing
+
+Once you have successfully started the docker services, just point your browser to (http://localhost:3000/) and that should give you the main page to login to production or sandbox and the rest should be automated.
