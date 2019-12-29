@@ -35,4 +35,5 @@ neo4j:
    - "7687:7474"
   volumes:
     - ./data:/data
- 
+    - ./conf:/conf
+    - ./plugins:/plugins
