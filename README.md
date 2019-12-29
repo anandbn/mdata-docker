@@ -75,3 +75,14 @@ sh run_mdata.sh down
 ## Accessing MData and kicking of an org indexing
 
 Once you have successfully started the docker services, just point your browser to (http://localhost:3000/) and that should give you the main page to login to production or sandbox and the rest should be automated.
+
+
+## Accessing Neo4j Browser
+
+Go to http://localhost:7474/browser
+
+For the connection and username/password enter the below:
+
+- `Connection URL`: http://localhost:7474
+- `Username` : neo4j
+- `Password` : test

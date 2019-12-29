@@ -1,12 +1,12 @@
 module.exports = [
     {
         "DeveloperName": "Profiles",
-        "Enabled__c": true,
+        "Enabled__c": false,
         "Additional_Configuration__c": null
     },
     {
         "DeveloperName": "RecordTypes",
-        "Enabled__c": true,
+        "Enabled__c": false,
         "Additional_Configuration__c": null
     },
     {
@@ -16,42 +16,42 @@ module.exports = [
     },
     {
         "DeveloperName": "WorkflowRules",
-        "Enabled__c": true,
+        "Enabled__c": false,
         "Additional_Configuration__c": null
     },
     {
         "DeveloperName": "FormulaFields",
-        "Enabled__c": true,
+        "Enabled__c": false,
         "Additional_Configuration__c": null
     },
     {
         "DeveloperName": "ListViews",
-        "Enabled__c": true,
+        "Enabled__c": false,
         "Additional_Configuration__c": null
     },
     {
         "DeveloperName": "PicklistValues",
-        "Enabled__c": true,
+        "Enabled__c": false,
         "Additional_Configuration__c": null
     },
     {
         "DeveloperName": "PublicGroups",
-        "Enabled__c": true,
+        "Enabled__c": false,
         "Additional_Configuration__c": null
     },
     {
         "DeveloperName": "ReportTypes",
-        "Enabled__c": true,
+        "Enabled__c": false,
         "Additional_Configuration__c": null
     },
     {
         "DeveloperName": "Roles",
-        "Enabled__c": true,
+        "Enabled__c": false,
         "Additional_Configuration__c": null
     },
     {
         "DeveloperName": "ValidationRules",
-        "Enabled__c": true,
+        "Enabled__c": false,
         "Additional_Configuration__c": null
     },
     {
@@ -61,29 +61,29 @@ module.exports = [
     },
     {
         "DeveloperName": "Layouts",
-        "Enabled__c": true,
+        "Enabled__c": false,
         "Additional_Configuration__c": null
     },
     {
         "DeveloperName": "Reports",
-        "Enabled__c":true,
+        "Enabled__c":false,
         "Additional_Configuration__c": {
             "reportsTimePeriodDays": 120
         }
     },
     {
         "DeveloperName": "WorkflowFieldUpdates",
-        "Enabled__c": true,
+        "Enabled__c": false,
         "Additional_Configuration__c": null
     },
     {
         "DeveloperName": "ApexTriggers",
-        "Enabled__c": true,
+        "Enabled__c": false,
         "Additional_Configuration__c": null
     },
     {
         "DeveloperName": "ApexClasses",
-        "Enabled__c": true,
+        "Enabled__c": false,
         "Additional_Configuration__c": null
     }
 ]
