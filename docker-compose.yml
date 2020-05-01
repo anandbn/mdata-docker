@@ -27,7 +27,7 @@ redis:
   expose:
     - 6379
 neo4j:
-  image: neo4j:latest
+  image: neo4j:3.5.12
   environment:
     - NEO4J_AUTH=neo4j/test
   ports:
