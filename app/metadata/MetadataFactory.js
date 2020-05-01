@@ -14,10 +14,12 @@ const WorkflowRules = require('./WorkflowRules.js');
 const ApexTriggers = require('./ApexTriggers.js');
 const ApexClasses = require('./ApexClasses.js');
 const Profiles = require('./Profiles.js');
+const EmailTemplates = require('./EmailTemplates.js');
+const WorkflowAlerts = require('./WorkflowAlerts.js');
 
 const classes = { CustomObjects,CustomFields,FormulaFields,Roles,PicklistValues,
                   PublicGroups,Reports,ListViews,ReportTypes,Layouts,ValidationRules,WorkflowFieldUpdates,
-                  WorkflowRules,ApexTriggers,ApexClasses,Profiles};
+                  WorkflowRules,ApexTriggers,ApexClasses,Profiles,EmailTemplates,WorkflowAlerts};
 
 class MetadataFactory{
 

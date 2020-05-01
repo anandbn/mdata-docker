@@ -29,6 +29,23 @@ module.exports = class WorkflowRules extends AbstractMetadataType{
                 this.logger.debug('['+this.conn.userInfo.organization_id + '] '+metadata.Id + ' - Created ' + cypRes.summary.counters._stats.relationshipsCreated + ' WorkflowFieldUpdate relationships');
 
             }
+
+            if (ruleActions[i].type === 'Alert') {
+                var cypRes = await this.neo4jutils.upsertRelationship(
+                    { type: "WorkflowAlert", findBy: "DeveloperName", findByVal: ruleActions[i].name },
+                    { type: "WorkflowRule", findBy: "Id", findByVal: metadata.Id },
+                    {
+                        type: "Uses",
+                        findBy: "name",
+                        params: {
+                            name: metadata.Name + '.Alert.' + ruleActions[i].name,
+                            type: 'Alert'
+                        }
+                    }
+                );
+                this.logger.debug('['+this.conn.userInfo.organization_id + '] '+metadata.Id + ' - Created ' + cypRes.summary.counters._stats.relationshipsCreated + ' WorkflowAlert relationships');
+
+            }
         }
     }
 
