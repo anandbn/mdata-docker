@@ -41,7 +41,7 @@ module.exports = class ReportTypes extends AbstractMetadataType{
 
     async createReportTypes(reportTypes){
         await super.updateMetadataStatus('In Progress', {   type: 'ReportTypes',  totalTypes: reportTypes.length});
-        let results = await this.conn.query("select QualifiedApiName,PluralLabel from EntityDefinition");
+        let results = await this.conn.queryAll("select QualifiedApiName,PluralLabel from EntityDefinition");
         let pluralObjNameToAPIName = {};
         for(var i=0;i<results.records.length;i++){
             this.logger.debug('['+this.conn.userInfo.organization_id + '] Plural Label:'+results.records[i].PluralLabel+' --> '+results.records[i].QualifiedApiName);
@@ -88,6 +88,8 @@ module.exports = class ReportTypes extends AbstractMetadataType{
     async process() {
         await super.updateMetadataStatus('In Progress', {type: 'ReportTypes'});
         var categories = await this.conn.getReportTypeList();
+
+        this.logger.debug('['+this.conn.userInfo.organization_id + '] Fetched report type categories '+ categories.length);
         var reportTypes = new Array();
         for(var i=0;i<categories.length;i++){
             var tmpReportTypes = categories[i].reportTypes;

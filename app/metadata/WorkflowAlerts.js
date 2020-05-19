@@ -13,16 +13,19 @@ module.exports = class WorkflowAlerts extends AbstractMetadataType{
     
     async process() {
         await super.updateMetadataStatus('In Progress',{type:'WorkflowAlerts'})
-        var workflowalerts = await MetadataUtils.getMetadataList(this.conn,'WorkflowAlert','Metadata,TemplateId,CcEmails,Description,DeveloperName,SenderType,ManageableState,NamespacePrefix,CreatedDate,CreatedById,LastModifiedDate,LastModifiedById,EntityDefinitionId,FullName',null);
+        var workflowalerts = await MetadataUtils.getMetadataList(this.conn,'WorkflowAlert','TemplateId,CcEmails,Description,DeveloperName,SenderType,ManageableState,NamespacePrefix,CreatedDate,CreatedById,LastModifiedDate,LastModifiedById,EntityDefinitionId',null);
         
         this.logger.debug('['+this.conn.userInfo.organization_id + '] Total Alerts Fetched:' + workflowalerts.length);
         await super.updateMetadataStatus('In Progress',{type:'WorkflowAlerts', totalTypes: workflowalerts.length })
 
         for (var i = 0; i < workflowalerts.length; i++) {
             try {
-                var wflowAlert = workflowalerts[i];
-                delete wflowAlert.attributes;
+                var wflowAlert = await this.conn.getMetadataForId('WorkflowAlert',workflowalerts[i].Id);
+                Object.assign(wflowAlert,wflowAlert.Metadata);
                 delete wflowAlert.Metadata;
+                delete wflowAlert.attributes;
+                delete wflowAlert.recipients;
+                delete wflowAlert.ccEmails;
                 var cypRes = await this.neo4jutils.upsert('WorkflowAlert','Id',wflowAlert);
                 this.logger.debug('['+this.conn.userInfo.organization_id + '] '+wflowAlert.Id+' - Created ' + cypRes.summary.counters._stats.nodesCreated + ' WorkflowAlert');
                 this.logger.debug('['+this.conn.userInfo.organization_id + '] Completed '+(i+1)+' WorkflowAlerts of '+workflowalerts.length+'...');

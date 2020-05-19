@@ -6,8 +6,11 @@ mdata-worker:
     - neo4j
     - redis
   working_dir: /app
-  command: node mdata-worker.js
+  command: node mdata-worker.js --inspect-brk=0.0.0.0 .
   env_file: "mdata.env"
+  ports:
+    - "9229:9229"
+  
 mdata-web:
   image: node:latest
   volumes:

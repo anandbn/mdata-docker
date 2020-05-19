@@ -1,3 +1,7 @@
+if(process.env.MDATA_LOCAL){
+    require('dotenv').load();
+}
+
 console.log(`============= Environment variables =============\n ${JSON.stringify(process.env,null,4)}`);
 var express = require('express'),
     oauth2 = require('salesforce-oauth2'),
@@ -62,7 +66,7 @@ app.use('/plugins/:id/execute',async function (req, res, next) {
     }
 });
 
-app.use(express.static('./public'));
+app.use(express.static('./app/public'));
 
 validOauthHeader = async function(req){
     let authHdr = req.get('Authorization');

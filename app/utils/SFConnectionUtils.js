@@ -102,6 +102,20 @@ module.exports = class SFConnectionUtils {
         return allRecords;
     }
 
+    async queryAllUsingLimit(theQuery){
+        let result  = await this.query(theQuery);
+        let allRecords = new Array();
+        while (!result.done) {
+            allRecords = lodash.concat(allRecords,result.records);
+            result = await this.sfdcConn.queryMore(result.nextRecordsUrl);
+        
+        }
+        if (result.records.length > 0) {
+            allRecords = lodash.concat(allRecords,result.records);
+        }
+        return allRecords;
+    }
+
     async setIdentityInfo() {
         let self = this;
         return new Promise(function (resolve, reject) {
