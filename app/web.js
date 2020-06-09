@@ -56,7 +56,7 @@ app.use('/plugins/:id/execute',async function (req, res, next) {
         res.locals.organization_id=oauthHdrValid.organization_id;
         next();
     }else if(process.env.LOCAL){
-        res.locals.organization_id=req.query.OrgId;
+        res.locals.organization_id=req.get('OrgId');;
         next();
     }else{
         res.statusCode = 401;
@@ -162,13 +162,8 @@ mdataInit = function (request, response) {
         //base_url: 'https://test.salesforce.com'
         base_url: request.query.loginUrl
     });
-    console.log(uri);
     return response.redirect(uri);
 };
-
-redisPurge = function() {
-    client.del('mdata_org_index');
-}
 
 
 app.get('/plugins', listAllPlugins);

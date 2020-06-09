@@ -2,7 +2,7 @@ require('dotenv').load();
 const sleep = require('sleepjs');
 
 var LoggerUtils = require('./utils/LoggerUtils.js');
-var logger = LoggerUtils.getLogger('mdata-worker', 'info');
+var logger = LoggerUtils.getLogger('mdata-worker', 'debug');
 const SFConnectionUtils = require('./utils/SFConnectionUtils.js');
 
 var redis = require("redis"),

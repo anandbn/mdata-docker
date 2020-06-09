@@ -102,7 +102,6 @@ module.exports = class MdataIndexer {
         neo4jutils.orgId = this.conn.userInfo.organization_id;
 
         for(let i=0;i<METADATA_TYPES.length;i++){
-            console.log(METADATA_TYPES[i]);
             if (shouldIndexType(mdataConfig, METADATA_TYPES[i],this.conn.orgNamespace)) {
                 let mDataPluginClass =  MetadataFactory.getPluginClass(METADATA_TYPES[i])
                 var mType = lodash.find(mdataConfig, { "DeveloperName": METADATA_TYPES[i] });

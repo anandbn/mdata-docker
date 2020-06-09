@@ -24,3 +24,5 @@ services:
     - "7687:7687"
     volumes:
       - ./data:/data
+      - ./conf:/conf
+      - ./plugins:/plugins

@@ -1,27 +1,27 @@
 module.exports = [
     {
         "DeveloperName": "Profiles",
-        "Enabled__c": true,
-        "Additional_Configuration__c": null
-    },
-    {
-        "DeveloperName": "RecordTypes",
-        "Enabled__c": true,
-        "Additional_Configuration__c": null
-    },
-    {
-        "DeveloperName": "CustomFields",
-        "Enabled__c": true,
-        "Additional_Configuration__c": null
-    },
-    {
-        "DeveloperName": "WorkflowRules",
         "Enabled__c": false,
         "Additional_Configuration__c": null
     },
     {
-        "DeveloperName": "FormulaFields",
+        "DeveloperName": "RecordTypes",
+        "Enabled__c": false,
+        "Additional_Configuration__c": null
+    },
+    {
+        "DeveloperName": "CustomFields",
+        "Enabled__c": false,
+        "Additional_Configuration__c": null
+    },
+    {
+        "DeveloperName": "WorkflowRules",
         "Enabled__c": true,
+        "Additional_Configuration__c": null
+    },
+    {
+        "DeveloperName": "FormulaFields",
+        "Enabled__c": false,
         "Additional_Configuration__c": null
     },
     {
@@ -31,12 +31,12 @@ module.exports = [
     },
     {
         "DeveloperName": "PicklistValues",
-        "Enabled__c": true,
+        "Enabled__c": false,
         "Additional_Configuration__c": null
     },
     {
         "DeveloperName": "PublicGroups",
-        "Enabled__c": true,
+        "Enabled__c": false,
         "Additional_Configuration__c": null
     },
     {
@@ -46,22 +46,22 @@ module.exports = [
     },
     {
         "DeveloperName": "Roles",
-        "Enabled__c": true,
+        "Enabled__c": false,
         "Additional_Configuration__c": null
     },
     {
         "DeveloperName": "ValidationRules",
-        "Enabled__c": true,
+        "Enabled__c": false,
         "Additional_Configuration__c": null
     },
     {
         "DeveloperName": "CustomObjects",
-        "Enabled__c": true,
+        "Enabled__c": false,
         "Additional_Configuration__c": null
     },
     {
         "DeveloperName": "Layouts",
-        "Enabled__c": true,
+        "Enabled__c": false,
         "Additional_Configuration__c": null
     },
     {
@@ -73,17 +73,17 @@ module.exports = [
     },
     {
         "DeveloperName": "WorkflowFieldUpdates",
-        "Enabled__c": true,
+        "Enabled__c": false,
         "Additional_Configuration__c": null
     },
     {
         "DeveloperName": "ApexTriggers",
-        "Enabled__c": true,
+        "Enabled__c": false,
         "Additional_Configuration__c": null
     },
     {
         "DeveloperName": "ApexClasses",
-        "Enabled__c": true,
+        "Enabled__c": false,
         "Additional_Configuration__c": null
     },
     {
