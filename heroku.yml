@@ -1,0 +1,18 @@
+setup:
+  addons:
+    - plan: heroku-redis:hobby-dev
+    - plan: graphenedb:dev-free
+  config:
+    LOCAL: true
+    SKIP_JOB_CREATE: true
+    BOOTSTRAP_SLEEP_SECS: 15
+    SF_CLIENT_ID: 3MVG9WtWSKUDG.x6eKgRnQaY0devdNN4eIspkzn5bM7B4KpnqDMadEWWqFzlZBOzXYhCRnRfONx1n0ekc4wWe
+    SF_CLIENT_SECRET: BFDE194265A7FC3DBCFD0585FCA3EDA355D8895C913B42739F5FA8B304575874
+    SF_CALLBACK_URL: https://mdata-poc.herokuapp.com/oauth/callback
+build:
+  docker:
+    web: app/Dockerfile
+    worker: app/worker/Dockerfile
+run:
+  web: npm start
+  worker: npm start

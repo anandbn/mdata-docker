@@ -12,9 +12,9 @@ client = redis.createClient({
 });
 
 
-const SFConnectionUtils = require('./utils/SFConnectionUtils.js');
+const SFConnectionUtils = require('./worker/utils/SFConnectionUtils.js');
 
-const PluginFactory = require('./plugins/PluginFactory.js');
+const PluginFactory = require('./worker/plugins/PluginFactory.js');
 
 var pluginFactory = new PluginFactory();
 
@@ -45,8 +45,6 @@ app.set('port', process.env.PORT || 3000);
 //Middleware
 app.use(session({secret: "w585hJqIfL0GWMUbD1WboOuvsjG9Urv1h8cEv8XyFZBPYV582WnLKapj1TboI5gp8sy3hDC53mbDXYDjLrIEvBbsz3MDKmzdLZCw"}));
 app.use('/plugins/:id/execute',async function (req, res, next) {
-    
-    console.log('OAuth Header:', req.get('Authorization'));
     let oauthHdrValid = {};
     if(!process.env.LOCAL){
         oauthHdrValid = await validOauthHeader(req);
@@ -66,7 +64,7 @@ app.use('/plugins/:id/execute',async function (req, res, next) {
     }
 });
 
-app.use(express.static('./app/public'));
+app.use(express.static('./public'));
 
 validOauthHeader = async function(req){
     let authHdr = req.get('Authorization');
@@ -144,7 +142,6 @@ oauthCallback = function (request, response) {
         // You can change loginUrl to connect to sandbox or prerelease env.
         base_url: loginUrl
     }, function (error, payload) {
-        console.log('Payload:' + JSON.stringify(payload));
         if (payload) {
             client.rpush('mdata_org_index', JSON.stringify(payload));
             response.send('Authorization successful !!!');
@@ -167,6 +164,8 @@ mdataInit = function (request, response) {
     });
     return response.redirect(uri);
 };
+
+
 app.get('/plugins', listAllPlugins);
 app.get('/plugins/:id', pluginDetail);
 app.get('/plugins/:id/execute', runPlugin);
@@ -174,9 +173,6 @@ app.get('/oauth/callback', oauthCallback);
 
 
 app.get("/mdata",mdataInit );
-
-
-
 
 // Start listening for HTTP requests
 var server = app.listen(app.get('port'), function() {
