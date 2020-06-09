@@ -56,7 +56,7 @@ app.use('/plugins/:id/execute',async function (req, res, next) {
         res.locals.organization_id=oauthHdrValid.organization_id;
         next();
     }else if(process.env.LOCAL){
-        res.locals.organization_id=req.get('OrgId');;
+        res.locals.organization_id=req.get('OrgId');
         next();
     }else{
         res.statusCode = 401;
