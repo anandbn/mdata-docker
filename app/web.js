@@ -45,9 +45,6 @@ app.set('port', process.env.PORT || 3000);
 //Middleware
 app.use(session({secret: "w585hJqIfL0GWMUbD1WboOuvsjG9Urv1h8cEv8XyFZBPYV582WnLKapj1TboI5gp8sy3hDC53mbDXYDjLrIEvBbsz3MDKmzdLZCw"}));
 app.use('/plugins/:id/execute',async function (req, res, next) {
-    
-    console.log('OAuth Header:', req.get('Authorization'));
-    console.log('OrgId:', req.query.OrgId);
     let oauthHdrValid = {};
     if(!process.env.LOCAL){
         oauthHdrValid = await validOauthHeader(req);
@@ -181,10 +178,6 @@ app.get('/oauth/callback', oauthCallback);
 
 
 app.get("/mdata",mdataInit );
-
-app.get("/redis/purge", redisPurge);
-
-app.get("/mdata/restart", mdataInit);
 
 // Start listening for HTTP requests
 var server = app.listen(app.get('port'), function() {
