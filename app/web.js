@@ -66,7 +66,7 @@ app.use('/plugins/:id/execute',async function (req, res, next) {
     }
 });
 
-app.use(express.static('./app/public'));
+app.use(express.static('./public'));
 
 validOauthHeader = async function(req){
     let authHdr = req.get('Authorization');
