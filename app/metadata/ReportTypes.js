@@ -43,9 +43,13 @@ module.exports = class ReportTypes extends AbstractMetadataType{
         await super.updateMetadataStatus('In Progress', {   type: 'ReportTypes',  totalTypes: reportTypes.length});
         let results = await this.conn.queryAll("select QualifiedApiName,PluralLabel from EntityDefinition");
         let pluralObjNameToAPIName = {};
-        for(var i=0;i<results.records.length;i++){
-            this.logger.debug('['+this.conn.userInfo.organization_id + '] Plural Label:'+results.records[i].PluralLabel+' --> '+results.records[i].QualifiedApiName);
-            pluralObjNameToAPIName[results.records[i].PluralLabel]=results.records[i].QualifiedApiName;
+        if(results){
+            for(var i=0;i<results.length;i++){
+                this.logger.debug('['+this.conn.userInfo.organization_id + '] Plural Label:'+results[i].PluralLabel+' --> '+results[i].QualifiedApiName);
+                pluralObjNameToAPIName[results[i].PluralLabel]=results[i].QualifiedApiName;
+            }
+        } else {
+            this.logger.debug("Attempting to determine custom object developer names from their plural labels failed. Many Report Type and Custom Object nodes will not be related.");
         }
         pluralObjNameToAPIName["Activities"]="Activity";
         for(var i=0;i<reportTypes.length;i++){
