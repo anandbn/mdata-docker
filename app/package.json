@@ -4,8 +4,7 @@
   "description": "Docker version of Mdata",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-worker":"node mdata-worker.js",
-    "start-web":"node web.js"
+    "start":"node web.js"
   },
   "author": "",
   "license": "ISC",

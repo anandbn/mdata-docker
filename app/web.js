@@ -12,9 +12,9 @@ client = redis.createClient({
 });
 
 
-const SFConnectionUtils = require('./utils/SFConnectionUtils.js');
+const SFConnectionUtils = require('./worker/utils/SFConnectionUtils.js');
 
-const PluginFactory = require('./plugins/PluginFactory.js');
+const PluginFactory = require('./worker/plugins/PluginFactory.js');
 
 var pluginFactory = new PluginFactory();
 
@@ -47,6 +47,7 @@ app.use(session({secret: "w585hJqIfL0GWMUbD1WboOuvsjG9Urv1h8cEv8XyFZBPYV582WnLKa
 app.use('/plugins/:id/execute',async function (req, res, next) {
     
     console.log('OAuth Header:', req.get('Authorization'));
+    console.log('OrgId:', req.query.OrgId);
     let oauthHdrValid = {};
     if(!process.env.LOCAL){
         oauthHdrValid = await validOauthHeader(req);
@@ -58,7 +59,7 @@ app.use('/plugins/:id/execute',async function (req, res, next) {
         res.locals.organization_id=oauthHdrValid.organization_id;
         next();
     }else if(process.env.LOCAL){
-        res.locals.organization_id=req.get('OrgId');
+        res.locals.organization_id=req.query.OrgId;
         next();
     }else{
         res.statusCode = 401;
@@ -66,7 +67,7 @@ app.use('/plugins/:id/execute',async function (req, res, next) {
     }
 });
 
-app.use(express.static('./app/public'));
+app.use(express.static('./public'));
 
 validOauthHeader = async function(req){
     let authHdr = req.get('Authorization');
@@ -144,7 +145,6 @@ oauthCallback = function (request, response) {
         // You can change loginUrl to connect to sandbox or prerelease env.
         base_url: loginUrl
     }, function (error, payload) {
-        console.log('Payload:' + JSON.stringify(payload));
         if (payload) {
             client.rpush('mdata_org_index', JSON.stringify(payload));
             response.send('Authorization successful !!!');
@@ -165,8 +165,15 @@ mdataInit = function (request, response) {
         //base_url: 'https://test.salesforce.com'
         base_url: request.query.loginUrl
     });
+    console.log(uri);
     return response.redirect(uri);
 };
+
+redisPurge = function() {
+    client.del('mdata_org_index');
+}
+
+
 app.get('/plugins', listAllPlugins);
 app.get('/plugins/:id', pluginDetail);
 app.get('/plugins/:id/execute', runPlugin);
@@ -175,8 +182,9 @@ app.get('/oauth/callback', oauthCallback);
 
 app.get("/mdata",mdataInit );
 
+app.get("/redis/purge", redisPurge);
 
-
+app.get("/mdata/restart", mdataInit);
 
 // Start listening for HTTP requests
 var server = app.listen(app.get('port'), function() {

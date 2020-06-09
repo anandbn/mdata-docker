@@ -1,42 +1,26 @@
-mdata-worker:
-  image: node:latest
-  volumes:
-    - ./app:/app
-  links:
-    - neo4j
-    - redis
-  working_dir: /app
-  command: node mdata-worker.js --inspect-brk=0.0.0.0 .
-  env_file: "mdata.env"
-  ports:
-    - "9229:9229"
-  
-mdata-web:
-  image: node:latest
-  volumes:
-    - ./app:/app
-  links:
-    - neo4j
-    - redis
-    - mdata-worker
-  working_dir: /app
-  command: node web.js
-  env_file: "mdata.env"
-  ports:
-    - "3000:3000"
-redis:
-  image: redis
-  container_name: cache
-  expose:
-    - 6379
-neo4j:
-  image: neo4j:3.5.12
-  environment:
-    - NEO4J_AUTH=neo4j/test
-  ports:
-   - "7474:7474"
-   - "7687:7687"
-  volumes:
-    - ./data:/data
-    - ./conf:/conf
-    - ./plugins:/plugins
+version: '3'
+services:
+  mdata-worker:
+    build: ./app/worker
+    env_file: "mdata.env"
+    ports:
+      - "9229:9229"
+  mdata-web:
+    build: ./app
+    env_file: "mdata.env"
+    ports:
+      - "3000:3000"
+  redis:
+    image: redis
+    container_name: redis
+    expose:
+      - 6379
+  neo4j:
+    image: neo4j:3.5.12
+    environment:
+      - NEO4J_AUTH=neo4j/test
+    ports:
+    - "7474:7474"
+    - "7687:7687"
+    volumes:
+      - ./data:/data
