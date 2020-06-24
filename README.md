@@ -23,13 +23,13 @@ For Windows:
 To start mdata use the following command:
 
 ```
-sh mdata_run.sh up
+sh run_mdata.sh up
 ```
 
 If you want to run all the mdata services as a daemon, run below instead:
 
 ```
-sh mdata_run.sh up -d
+sh run_mdata.sh up -d
 ```
 
 __Note__: If this the first time, docker will download, Node, Neo4J and Redis images and it might take some time before the entire thing starts up. Subsequent times will be a lot quicker.
