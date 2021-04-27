@@ -20,7 +20,7 @@
     "lodash": "^4.17.10",
     "neo4j-driver": "^1.6.2",
     "node-rest-client": "^3.1.0",
-    "redis": "^2.8.0",
+    "redis": "^3.1.1",
     "salesforce-oauth2": "^0.2.0",
     "sf-formula-ast": "0.0.1",
     "sleepjs": "^3.0.1",
